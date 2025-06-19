@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "genie-tooling-karta"
+version = "1.0.0"
+description = "Karta Engine: An intelligent, self-discovering knowledge and comprehension subsystem for Genie Tooling."
+authors = ["colonelpanik"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{ include = "karta_for_genie", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+pydantic = "^2.0"
+genie-tooling = {git = "https://github.com/genie-tooling/genie-tooling.git", rev = "more-fixes-karta"}
+httpx = "^0.27.0"
+numpy = ">=1.0"
+spacy = { version = "^3.7.0", optional = true }
+wikipedia-api = { version = "^0.6.0", optional = true }
+wolframalpha = { version = "^5.0.0", optional = true }
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+pytest-httpx = "^0.30.0"
+
+[tool.poetry.extras]
+nlp = ["spacy"]
+knowledge = ["wikipedia-api"]
+computation = ["wolframalpha"]
+full = ["spacy", "wikipedia-api", "wolframalpha"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "e2e: marks tests as end-to-end, which require live services (e.g., Ollama)",
+]
+# FIX: Add filterwarnings to ignore deprecation warnings from dependencies.
+filterwarnings = [
+    "ignore:'BaseCommand' is deprecated:DeprecationWarning:typer",
+    "ignore:Importing 'parser.split_arg_string' is deprecated:DeprecationWarning",
+    "ignore:.*has no __module__ attribute:DeprecationWarning",
+]
+
+
+[tool.poetry.plugins."genie_tooling.bootstrap"]
+"karta_engine_bootstrap_v1" = "karta_for_genie.bootstrap:KartaEngineBootstrapPlugin"
+
+[tool.poetry.plugins."genie_tooling.plugins"]
+"spacy_ner_dispatcher_v1" = "karta_for_genie.dispatchers.impl.spacy_ner_dispatcher:SpacyNerDispatcher"
+"llm_summary_dispatcher_v1" = "karta_for_genie.dispatchers.impl.llm_dispatchers:LlmSummaryDispatcher"
+"wikipedia_fact_dispatcher_v1" = "karta_for_genie.dispatchers.impl.wikipedia_dispatcher:WikipediaFactDispatcher"
+"wolfram_alpha_dispatcher_v1" = "karta_for_genie.dispatchers.impl.wolfram_dispatcher:WolframAlphaDispatcher"
+"entity_recognition_tool_v1" = "karta_for_genie.tools.entity_recognition_tool:entity_recognition_tool"
+"summarization_tool_v1" = "karta_for_genie.tools.summarization_tool:summarization_tool"
+"fact_lookup_tool_v1" = "karta_for_genie.tools.fact_lookup_tool:fact_lookup_tool"
