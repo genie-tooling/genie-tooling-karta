@@ -34,7 +34,7 @@ class MockKeyProvider(KeyProvider, Plugin):
         pass
 
 
-# FIX: Add mock classes for the missing dependencies.
+
 class MockEmbedder(EmbeddingGeneratorPlugin):
     plugin_id = "sentence_transformer_embedder_v1"
 
@@ -123,7 +123,7 @@ def mock_plugin_manager_fixture():
             pass
 
     plugins = {
-        # FIX: Add instances of the mock dependencies needed by Genie.create()
+        
         "karta_engine_bootstrap_v1": KartaEngineBootstrapPlugin(),
         "environment_key_provider_v1": MockKeyProvider(),
         "sentence_transformer_embedder_v1": MockEmbedder(),

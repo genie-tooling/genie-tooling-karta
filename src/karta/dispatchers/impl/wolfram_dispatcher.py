@@ -82,7 +82,7 @@ class WolframAlphaDispatcher(FactLookupDispatcher, KnowledgeProvider):
             response.raise_for_status()
             xml_content = response.content
 
-            # FIX: Manually parse the XML using ElementTree.
+            
             xml_root = ET.fromstring(xml_content)
 
             # Check if the query was successful at the API level.

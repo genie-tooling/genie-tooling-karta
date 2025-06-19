@@ -43,6 +43,9 @@ class KnowledgeRouter:
         logger.info(
             "KnowledgeRouter setup: Discovering and indexing knowledge providers..."
         )
+        from karta.dispatchers.abc import (
+            KnowledgeProvider,
+        )  # Local import to avoid circularity issues at module level
 
         all_knowledge_providers = (
             await self.plugin_manager.get_all_plugin_instances_by_type(KnowledgeProvider)

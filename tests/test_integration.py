@@ -19,7 +19,7 @@ async def acollect(agen):
 async def test_router_uses_core_services(mock_plugin_manager_fixture):
     """Tests that the router uses the injected embedder and vector store."""
     # ARRANGE
-    # FIX: Use AsyncMock for objects that have async methods to be mocked.
+    
     mock_embedder = AsyncMock()
     mock_vector_store = AsyncMock()
     mock_vector_store.add = AsyncMock()

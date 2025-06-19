@@ -12,7 +12,7 @@ class KnowledgeProvider(Protocol):
 
 @runtime_checkable
 class FactLookupDispatcher(Plugin, Protocol):
-    # FIX: Ensure 'genie' is part of the protocol signature
+    
     async def lookup_fact(self, entity: str, attribute: str, genie: Any, config: Optional[Dict[str, Any]] = None) -> Optional[Fact]: ...
 
 @runtime_checkable
@@ -21,5 +21,5 @@ class EntityRecognitionDispatcher(Plugin, Protocol):
 
 @runtime_checkable
 class SummarizationDispatcher(Plugin, Protocol):
-    # FIX: Ensure 'genie' is part of the protocol signature
+    
     async def summarize(self, text: str, style: str, genie: Any, config: Optional[Dict[str, Any]] = None) -> str: ...

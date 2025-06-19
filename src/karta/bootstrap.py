@@ -18,7 +18,7 @@ class KartaEngineBootstrapPlugin(BootstrapPlugin):
     async def bootstrap(self, genie: "Genie") -> None:
         logger.info("KartaEngineBootstrapPlugin: Executing bootstrap logic...")
 
-        # FIX: The config object is a private attribute of the Genie instance.
+        
         karta_config = genie._config.extension_configurations.get("karta", {})
 
         # Use the new public accessors for shared components.

@@ -22,7 +22,7 @@ async def test_e2e_full_system_with_live_ollama():
     and initialize all correctly packaged plugins.
     """
     # ARRANGE
-    # FIX: The E2E test must configure all features that the Karta bootstrap depends on.
+    
     app_config = MiddlewareConfig(
         features={
             "llm": "ollama",
