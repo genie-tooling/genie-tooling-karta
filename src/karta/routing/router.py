@@ -1,10 +1,10 @@
-# karta-engine/src/karta_for_genie/routing/router.py
+# karta-engine/src/karta/routing/router.py
 
 import logging
 from typing import Any, AsyncIterable, Dict, List, Tuple
 
 from genie_tooling.core.types import Chunk
-from karta_for_genie.dispatchers.abc import KnowledgeProvider
+from karta.dispatchers.abc import KnowledgeProvider
 
 logger = logging.getLogger(__name__)
 
