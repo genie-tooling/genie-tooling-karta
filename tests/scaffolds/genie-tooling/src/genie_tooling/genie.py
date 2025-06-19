@@ -1,7 +1,7 @@
 # tests/scaffolds/genie_tooling/genie.py
 # Functional Scaffold
 import logging
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional, cast
 
 from .config.models import MiddlewareConfig
 from .config.resolver import ConfigResolver
@@ -11,7 +11,7 @@ from .security.key_provider import KeyProvider
 from .vector_stores.abc import VectorStorePlugin
 
 if TYPE_CHECKING:
-    pass
+    from .bootstrap.abc import BootstrapPlugin
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ class Genie:
         resolver = ConfigResolver()
         resolved_config = resolver.resolve(config, key_provider_instance)
 
-        # FIX: Instantiate the default embedder and vector store based on the resolved config
+        
         # This makes the scaffold behave more like the real Genie framework.
         embedder_id = resolved_config.default_rag_embedder_id
         vs_id = resolved_config.default_rag_vector_store_id
