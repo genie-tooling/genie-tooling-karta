@@ -7,11 +7,11 @@ from unittest.mock import AsyncMock, MagicMock, patch
 # --- Test Individual Dispatchers ---
 
 
-@patch("karta_for_genie.dispatchers.impl.spacy_ner_dispatcher.spacy")
+@patch("karta.dispatchers.impl.spacy_ner_dispatcher.spacy")
 @pytest.mark.asyncio
 async def test_spacy_dispatcher(mock_spacy):
     """Tests the SpacyNerDispatcher by mocking the spacy library."""
-    from karta_for_genie.dispatchers.impl.spacy_ner_dispatcher import SpacyNerDispatcher
+    from karta.dispatchers.impl.spacy_ner_dispatcher import SpacyNerDispatcher
 
     mock_ent = MagicMock()
     mock_ent.text, mock_ent.label_, mock_ent.start_char, mock_ent.end_char = (
@@ -29,11 +29,11 @@ async def test_spacy_dispatcher(mock_spacy):
     assert len(entities) == 1 and entities[0].label == "PERSON"
 
 
-@patch("karta_for_genie.dispatchers.impl.wikipedia_dispatcher.wikipediaapi.Wikipedia")
+@patch("karta.dispatchers.impl.wikipedia_dispatcher.wikipediaapi.Wikipedia")
 @pytest.mark.asyncio
 async def test_wikipedia_dispatcher_finds_fact(mock_wiki_class):
     """Tests Wikipedia dispatcher success path by mocking the library."""
-    from karta_for_genie.dispatchers.impl.wikipedia_dispatcher import WikipediaFactDispatcher
+    from karta.dispatchers.impl.wikipedia_dispatcher import WikipediaFactDispatcher
 
     mock_page = MagicMock()
     mock_page.exists.return_value = True
@@ -58,12 +58,12 @@ async def test_wikipedia_dispatcher_finds_fact(mock_wiki_class):
     assert fact.source == "https://en.wikipedia.org/wiki/Eiffel_Tower"
 
 
-@patch("karta_for_genie.dispatchers.impl.wolfram_dispatcher.httpx.AsyncClient")
+@patch("karta.dispatchers.impl.wolfram_dispatcher.httpx.AsyncClient")
 @pytest.mark.asyncio
 async def test_wolfram_dispatcher_correctly_mocked(mock_httpx_client_class):
     """Tests Wolfram dispatcher by mocking the httpx library client."""
-    from karta_for_genie.dispatchers.impl.wolfram_dispatcher import WolframAlphaDispatcher
-    from karta_for_genie.types import Fact
+    from karta.dispatchers.impl.wolfram_dispatcher import WolframAlphaDispatcher
+    from karta.types import Fact
 
     # Mock the response from httpx.get()
     mock_response = MagicMock()
@@ -86,7 +86,7 @@ async def test_wolfram_dispatcher_correctly_mocked(mock_httpx_client_class):
 
     dispatcher = WolframAlphaDispatcher()
     with patch(
-        "karta_for_genie.dispatchers.impl.wolfram_dispatcher.wolframalpha.Client"
+        "karta.dispatchers.impl.wolfram_dispatcher.wolframalpha.Client"
     ) as mock_wolfram_client:
         mock_wolfram_client.return_value.app_id = "FAKE-ID"
         await dispatcher.setup(config={"app_id": "FAKE-ID"})
@@ -105,7 +105,7 @@ async def test_wolfram_dispatcher_correctly_mocked(mock_httpx_client_class):
 @pytest.mark.asyncio
 async def test_no_op_dispatcher(caplog: pytest.LogCaptureFixture):
     """Tests the NoOpEntityDispatcher to ensure it returns an empty list."""
-    from karta_for_genie.dispatchers.impl.no_op_dispatchers import NoOpEntityDispatcher
+    from karta.dispatchers.impl.no_op_dispatchers import NoOpEntityDispatcher
 
     caplog.set_level(logging.INFO)
 

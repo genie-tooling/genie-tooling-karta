@@ -1,10 +1,10 @@
-# karta-engine/src/karta_for_genie/dispatchers/impl/wikipedia_dispatcher.py
+# karta-engine/src/karta/dispatchers/impl/wikipedia_dispatcher.py
 
 import logging
 from typing import Any, Dict, Optional
 
-from karta_for_genie.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider
-from karta_for_genie.types import Fact
+from karta.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider
+from karta.types import Fact
 
 logger = logging.getLogger(__name__)
 

@@ -1,4 +1,4 @@
-# karta-engine/src/karta_for_genie/tools/summarization_tool.py
+# karta-engine/src/karta/tools/summarization_tool.py
 from typing import Any, Dict
 
 from genie_tooling import tool

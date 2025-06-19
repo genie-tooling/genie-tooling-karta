@@ -1,8 +1,8 @@
-# karta-engine/src/karta_for_genie/dispatchers/abc.py
+# karta-engine/src/karta/dispatchers/abc.py
 
 from typing import Protocol, List, Dict, Any, Optional, runtime_checkable
 
-from karta_for_genie.types import Entity, Fact
+from karta.types import Entity, Fact
 from genie_tooling.core.types import Plugin
 
 @runtime_checkable

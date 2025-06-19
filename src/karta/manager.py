@@ -2,12 +2,12 @@ import logging
 from typing import Any, Dict, Optional
 
 from genie_tooling.tools.manager import ToolManager
-from karta_for_genie.dispatchers.abc import (
+from karta.dispatchers.abc import (
     FactLookupDispatcher,
     SummarizationDispatcher,
 )
-from karta_for_genie.routing.router import KnowledgeRouter
-from karta_for_genie.types import Fact
+from karta.routing.router import KnowledgeRouter
+from karta.types import Fact
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +62,7 @@ class KartaManager:
         entity_config = self.config.get("entity_recognition", {})
         target_id = dispatcher_id or entity_config.get("dispatcher_id", "spacy_ner_dispatcher_v1")
         dispatcher = await self.plugin_manager.get_plugin_instance(target_id)
-        from karta_for_genie.dispatchers.abc import EntityRecognitionDispatcher
+        from karta.dispatchers.abc import EntityRecognitionDispatcher
         if isinstance(dispatcher, EntityRecognitionDispatcher):
             return await dispatcher.recognize_entities(text=text, config=entity_config.get("dispatcher_config"))
         return []

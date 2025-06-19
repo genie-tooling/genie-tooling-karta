@@ -1,4 +1,4 @@
-# karta-engine/src/karta_for_genie/tools/entity_recognition_tool.py
+# karta-engine/src/karta/tools/entity_recognition_tool.py
 from typing import Any, Dict, List
 
 from genie_tooling import tool
@@ -23,7 +23,7 @@ async def entity_recognition_tool(
         return {"error": "The Karta Engine subsystem is not installed or available."}
 
     # The type hint helps with static analysis, but the object is already a full Genie instance.
-    from karta_for_genie.types import Entity
+    from karta.types import Entity
 
     entities: List[Entity] = await genie_instance.karta.recognize_entities(text=text)
     return {"entities": [entity.model_dump() for entity in entities]}

@@ -1,8 +1,8 @@
-# karta-engine/src/karta_for_genie/dispatchers/impl/llm_dispatchers.py
+# karta-engine/src/karta/dispatchers/impl/llm_dispatchers.py
 
 from typing import Dict, Any, Optional
 
-from karta_for_genie.dispatchers.abc import SummarizationDispatcher
+from karta.dispatchers.abc import SummarizationDispatcher
 
 class LlmSummaryDispatcher(SummarizationDispatcher):
     plugin_id: str = "llm_summary_dispatcher_v1"

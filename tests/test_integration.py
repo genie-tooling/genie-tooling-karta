@@ -2,9 +2,9 @@ import pytest
 import numpy as np
 from unittest.mock import MagicMock, AsyncMock
 
-from karta_for_genie.routing.router import KnowledgeRouter
-from karta_for_genie.manager import KartaManager
-from karta_for_genie.types import Fact
+from karta.routing.router import KnowledgeRouter
+from karta.manager import KartaManager
+from karta.types import Fact
 
 # Helper to create async generator
 async def async_gen(data):

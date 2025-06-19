@@ -9,9 +9,9 @@ from typing import Any
 from genie_tooling.config.features import FeatureSettings
 from genie_tooling.config.models import MiddlewareConfig
 from genie_tooling.genie import Genie
-from karta_for_genie.tools.entity_recognition_tool import entity_recognition_tool
-from karta_for_genie.tools.fact_lookup_tool import fact_lookup_tool
-from karta_for_genie.tools.summarization_tool import summarization_tool
+from karta.tools.entity_recognition_tool import entity_recognition_tool
+from karta.tools.fact_lookup_tool import fact_lookup_tool
+from karta.tools.summarization_tool import summarization_tool
 
 
 def print_header(title: str):
@@ -37,7 +37,7 @@ async def run_karta_showcase():
     """
     logging.basicConfig(level=logging.INFO)
     logging.getLogger("genie_tooling").setLevel(logging.WARNING)
-    logging.getLogger("karta_for_genie").setLevel(logging.INFO)
+    logging.getLogger("karta").setLevel(logging.INFO)
 
 
     # --- Check for API Keys ---

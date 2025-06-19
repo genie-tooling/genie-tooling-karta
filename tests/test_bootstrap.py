@@ -4,7 +4,7 @@ import pytest
 # Because of conftest.py, these imports now work and point to our dummy implementations.
 from genie_tooling.config.models import MiddlewareConfig
 from genie_tooling.genie import Genie
-from karta_for_genie.interface import KartaInterface
+from karta.interface import KartaInterface
 
 
 @pytest.mark.asyncio

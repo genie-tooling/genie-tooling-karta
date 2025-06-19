@@ -1,12 +1,12 @@
-# karta-engine/src/karta_for_genie/dispatchers/impl/wolfram_dispatcher.py
+# karta-engine/src/karta/dispatchers/impl/wolfram_dispatcher.py
 
 import logging
 import xml.etree.ElementTree as ET
 from typing import Any, Dict, Optional
 
 import httpx
-from karta_for_genie.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider
-from karta_for_genie.types import Fact
+from karta.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider
+from karta.types import Fact
 
 logger = logging.getLogger(__name__)
 

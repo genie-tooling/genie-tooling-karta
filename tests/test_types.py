@@ -2,7 +2,7 @@
 import pytest
 from pydantic import ValidationError
 
-from karta_for_genie.types import Entity, Fact
+from karta.types import Entity, Fact
 
 
 class TestEntityType:

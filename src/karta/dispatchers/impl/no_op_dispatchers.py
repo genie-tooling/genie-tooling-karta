@@ -1,8 +1,8 @@
 import logging
 from typing import List, Dict, Any, Optional
 
-from karta_for_genie.dispatchers.abc import EntityRecognitionDispatcher
-from karta_for_genie.types import Entity
+from karta.dispatchers.abc import EntityRecognitionDispatcher
+from karta.types import Entity
 
 logger = logging.getLogger(__name__)
 

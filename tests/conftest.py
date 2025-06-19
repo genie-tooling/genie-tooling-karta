@@ -15,8 +15,8 @@ from genie_tooling.core.types import Plugin  # noqa: E402
 from genie_tooling.embedding_generators.abc import EmbeddingGeneratorPlugin # noqa: E402
 from genie_tooling.security.key_provider import KeyProvider # noqa: E402
 from genie_tooling.vector_stores.abc import VectorStorePlugin # noqa: E402
-from karta_for_genie.bootstrap import KartaEngineBootstrapPlugin # noqa: E402
-from karta_for_genie.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider # noqa: E402
+from karta.bootstrap import KartaEngineBootstrapPlugin # noqa: E402
+from karta.dispatchers.abc import FactLookupDispatcher, KnowledgeProvider # noqa: E402
 
 
 class MockKeyProvider(KeyProvider, Plugin):

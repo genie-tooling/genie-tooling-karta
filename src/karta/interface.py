@@ -1,8 +1,8 @@
 import logging
 from typing import List, Optional
 
-from karta_for_genie.manager import KartaManager
-from karta_for_genie.types import Entity, Fact
+from karta.manager import KartaManager
+from karta.types import Entity, Fact
 
 logger = logging.getLogger(__name__)
 

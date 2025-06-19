@@ -2,8 +2,8 @@ import logging
 from typing import TYPE_CHECKING
 
 from genie_tooling.bootstrap import BootstrapPlugin
-from karta_for_genie.interface import KartaInterface
-from karta_for_genie.manager import KartaManager
+from karta.interface import KartaInterface
+from karta.manager import KartaManager
 
 if TYPE_CHECKING:
     from genie_tooling.genie import Genie
