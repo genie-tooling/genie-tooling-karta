@@ -10,12 +10,14 @@ packages = [{ include = "karta_for_genie", from = "src" }]
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
 pydantic = "^2.0"
-genie-tooling = {git = "https://github.com/genie-tooling/genie-tooling.git", rev = "more-fixes-karta"}
-httpx = "^0.27.0"
+genie-tooling = {git = "https://github.com/genie-tooling/genie-tooling.git", rev = "fix-httpx",   develop = true, extras = ["ollama", "local_rag"]}
+httpx = ">0.26.0"
 numpy = ">=1.0"
 spacy = { version = "^3.7.0", optional = true }
 wikipedia-api = { version = "^0.6.0", optional = true }
 wolframalpha = { version = "^5.0.0", optional = true }
+aiofiles = "^24.1.0"
+spacey = "^0.1.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"
