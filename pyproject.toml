@@ -38,11 +38,11 @@ build-backend = "poetry.core.masonry.api"
 markers = [
     "e2e: marks tests as end-to-end, which require live services (e.g., Ollama)",
 ]
-# FIX: Add filterwarnings to ignore deprecation warnings from dependencies.
 filterwarnings = [
     "ignore:'BaseCommand' is deprecated:DeprecationWarning:typer",
     "ignore:Importing 'parser.split_arg_string' is deprecated:DeprecationWarning",
     "ignore:.*has no __module__ attribute:DeprecationWarning",
+    "ignore:.*_multiarray_umath is deprecated:DeprecationWarning",
 ]
 
 

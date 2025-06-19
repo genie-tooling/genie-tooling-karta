@@ -3,16 +3,22 @@
 import logging
 from typing import Any, AsyncIterable, Dict, List, Tuple
 
-import numpy as np
-
 from genie_tooling.core.types import Chunk
 from karta_for_genie.dispatchers.abc import KnowledgeProvider
 
 logger = logging.getLogger(__name__)
 
+
 class KnowledgeRouter:
     """Intelligently routes a knowledge query by using the core framework's embedding and vector store services."""
-    def __init__(self, plugin_manager: Any, embedder: Any, vector_store: Any, config: Dict[str, Any]):
+
+    def __init__(
+        self,
+        plugin_manager: Any,
+        embedder: Any,
+        vector_store: Any,
+        config: Dict[str, Any],
+    ):
         """
         Initializes the router with injected dependencies from the core framework.
 
@@ -28,20 +34,27 @@ class KnowledgeRouter:
         self.config = config
         self.provider_map: List[Tuple[str, str]] = []  # (plugin_id, description)
         self.is_ready = False
-        self.collection_name = self.config.get("collection_name", "karta_knowledge_providers")
+        self.collection_name = self.config.get(
+            "collection_name", "karta_knowledge_providers"
+        )
 
     async def setup(self):
         """Discovers knowledge providers and adds their descriptions to the vector store."""
-        logger.info("KnowledgeRouter setup: Discovering and indexing knowledge providers...")
-        from karta_for_genie.dispatchers.abc import KnowledgeProvider # Local import to avoid circularity issues at module level
+        logger.info(
+            "KnowledgeRouter setup: Discovering and indexing knowledge providers..."
+        )
 
-        all_knowledge_providers = await self.plugin_manager.get_all_plugin_instances_by_type(KnowledgeProvider)
+        all_knowledge_providers = (
+            await self.plugin_manager.get_all_plugin_instances_by_type(KnowledgeProvider)
+        )
 
         exclude_list = self.config.get("exclude_providers", [])
 
         for plugin_instance in all_knowledge_providers:
-            # FIX: Get config for this specific dispatcher from the router's main config
-            dispatcher_config = self.config.get("dispatcher_specific_configs", {}).get(plugin_instance.plugin_id, {})
+            # Get config for this specific dispatcher from the router's main config
+            dispatcher_config = self.config.get("dispatcher_specific_configs", {}).get(
+                plugin_instance.plugin_id, {}
+            )
             # Pass this specific config to the plugin's setup method.
             await plugin_instance.setup(dispatcher_config)
 
@@ -57,31 +70,41 @@ class KnowledgeRouter:
 
         async def _provider_chunks() -> AsyncIterable[Chunk]:
             """Helper async generator to create Chunk objects for the embedder."""
+
             class ProviderChunk(Chunk):
                 def __init__(self, _id, _content):
                     self.id = _id
                     self.content = _content
                     self.metadata = {}
+
             for plugin_id, desc in self.provider_map:
                 yield ProviderChunk(plugin_id, desc)
 
         try:
-            # FIX: The embed method returns an async iterable. Do not await the call itself.
-            # The vector_store.add method consumes the async iterable.
-            embedding_stream = self.embedder.embed(chunks=_provider_chunks())
+            # FIX: Await the embedder call to get the async generator.
+            embedding_stream = await self.embedder.embed(chunks=_provider_chunks())
             await self.vector_store.add(
                 embeddings=embedding_stream,
-                config={"collection_name": self.collection_name}
+                config={"collection_name": self.collection_name},
             )
             self.is_ready = True
-            logger.info(f"KnowledgeRouter indexed {len(self.provider_map)} providers into collection '{self.collection_name}'.")
+            logger.info(
+                f"KnowledgeRouter indexed {len(self.provider_map)} providers into collection '{self.collection_name}'."
+            )
         except Exception as e:
-            logger.error(f"Failed to index knowledge providers in vector store: {e}", exc_info=True)
+            logger.error(
+                f"Failed to index knowledge providers in vector store: {e}",
+                exc_info=True,
+            )
             self.is_ready = False
 
     async def get_provider_cascade(self, query: str, top_k: int = 5) -> List[str]:
         if not self.is_ready:
-            return [self.config.get("fallback_provider")] if self.config.get("fallback_provider") else []
+            return (
+                [self.config.get("fallback_provider")]
+                if self.config.get("fallback_provider")
+                else []
+            )
 
         class QueryChunk(Chunk):
             def __init__(self, content):
@@ -93,8 +116,10 @@ class KnowledgeRouter:
             yield QueryChunk(query)
 
         try:
-            # FIX: The embed method returns an async iterable. Do not await the call.
-            query_embedding_stream = self.embedder.embed(chunks=query_chunk_generator())
+            # FIX: Await the embedder call to get the async generator.
+            query_embedding_stream = await self.embedder.embed(
+                chunks=query_chunk_generator()
+            )
             query_embedding_result = [res async for res in query_embedding_stream]
         except Exception as e:
             logger.error(f"Error getting query embedding: {e}", exc_info=True)
@@ -108,7 +133,7 @@ class KnowledgeRouter:
         search_results = await self.vector_store.search(
             query_embedding=query_vector,
             top_k=min(top_k, len(self.provider_map)),
-            config={"collection_name": self.collection_name}
+            config={"collection_name": self.collection_name},
         )
         ranked_ids = [chunk.id for chunk in search_results if chunk.id]
 

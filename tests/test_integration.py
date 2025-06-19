@@ -2,7 +2,6 @@ import pytest
 import numpy as np
 from unittest.mock import MagicMock, AsyncMock
 
-from genie_tooling.core.types import Chunk, RetrievedChunk
 from karta_for_genie.routing.router import KnowledgeRouter
 from karta_for_genie.manager import KartaManager
 from karta_for_genie.types import Fact

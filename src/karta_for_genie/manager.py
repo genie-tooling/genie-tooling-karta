@@ -32,7 +32,8 @@ class KartaManager:
         for provider_id in cascade:
             # FIX: Use the correct method name `get_plugin_instance`.
             provider = await self.plugin_manager.get_plugin_instance(provider_id)
-            if not provider: continue
+            if not provider:
+                continue
 
             result = None
             if isinstance(provider, FactLookupDispatcher):
