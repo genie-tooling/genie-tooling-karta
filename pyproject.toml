@@ -10,7 +10,7 @@ packages = [{ include = "karta", from = "src" }]
 [tool.poetry.dependencies]
 python = ">=3.11,<4.0"
 pydantic = "^2.0"
-genie-tooling = {git = "https://github.com/genie-tooling/genie-tooling.git", rev = "fix-httpx",   develop = true, extras = ["ollama", "local_rag"]}
+genie-tooling = {git = "https://github.com/genie-tooling/genie-tooling.git",  develop = true, extras = ["ollama", "local_rag"]}
 httpx = ">0.26.0"
 numpy = ">=1.0"
 spacy = { version = "^3.7.0", optional = true }
